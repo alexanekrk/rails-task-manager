@@ -4,10 +4,10 @@ class TasksController < ApplicationController
   end
 
   def show
-    @tasks = Task.find(params['id'])
-    if @tasks.completed == false
+    @task = Task.find(params['id'])
+    if @task.completed == false
       @message = 'This task is not completed yet'
-    elsif @tasks.completed == true
+    elsif @task.completed == true
       @message = 'This task is completed !'
     end
   end
@@ -30,6 +30,12 @@ class TasksController < ApplicationController
     @task = Task.find(params['id'])
     @task.update(task_params)
     redirect_to task_path(@task)
+  end
+
+  def destroy
+    @task = Task.find(params['id'])
+    @task.destroy
+    redirect_to tasks_path(@task)
   end
 
   private
